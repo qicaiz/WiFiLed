@@ -52,7 +52,7 @@
         android:id="@+id/red_parent"
         android:layout_below="@id/btn_connect"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="80dp"
         android:background="#ff0000"
         android:gravity="center_vertical"
         >
@@ -78,7 +78,7 @@
         android:id="@+id/yellow_parent"
         android:layout_below="@id/red_parent"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="80dp"
         android:background="#ffff00"
         android:gravity="center_vertical"
         >
@@ -102,7 +102,7 @@
         android:background="#0000ff"
         android:layout_below="@id/yellow_parent"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="80dp"
         android:gravity="center_vertical"
         >
         <Button

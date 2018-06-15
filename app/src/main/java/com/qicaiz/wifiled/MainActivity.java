@@ -72,28 +72,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.btn_red_on:
-                out.print("1");
-                out.flush();
+                if (out != null) {
+                    out.print("1");
+                    out.flush();
+                }
                 break;
             case R.id.btn_red_off:
-                out.print("2");
-                out.flush();
+                if (out != null) {
+                    out.print("2");
+                    out.flush();
+                }
                 break;
             case R.id.btn_yellow_on:
-                out.print("3");
-                out.flush();
+                if (out != null) {
+                    out.print("3");
+                    out.flush();
+                }
                 break;
             case R.id.btn_yellow_off:
-                out.print("4");
-                out.flush();
+                if (out != null) {
+                    out.print("4");
+                    out.flush();
+                }
                 break;
             case R.id.btn_blue_on:
-                out.print("5");
-                out.flush();
+                if (out != null) {
+                    out.print("5");
+                    out.flush();
+                }
                 break;
             case R.id.btn_blue_off:
-                out.print("6");
-                out.flush();
+                if (out != null) {
+                    out.print("6");
+                    out.flush();
+                }
                 break;
         }
     }
