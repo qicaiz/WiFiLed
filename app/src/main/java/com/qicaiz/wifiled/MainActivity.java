@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Socket mSocket;
     private EditText mEtIP;
     private EditText mEtPort;
+    private Button mBtnConnect;
     private Button mBtnRedOn;
     private Button mBtnRedOff;
     private Button mBtnYellowOn;
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button connectBtn = (Button) findViewById(R.id.btn_connect);
+        mBtnConnect = (Button) findViewById(R.id.btn_connect);
         mEtIP = (EditText) findViewById(R.id.et_ip);
         mEtPort = (EditText) findViewById(R.id.et_port);
         mBtnRedOn = (Button) findViewById(R.id.btn_red_on);
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mBtnYellowOff = (Button) findViewById(R.id.btn_yellow_off);
         mBtnBlueOn = (Button) findViewById(R.id.btn_blue_on);
         mBtnBlueOff = (Button) findViewById(R.id.btn_blue_off);
-        connectBtn.setOnClickListener(this);
+        mBtnConnect.setOnClickListener(this);
         mBtnRedOn.setOnClickListener(this);
         mBtnRedOff.setOnClickListener(this);
         mBtnYellowOn.setOnClickListener(this);
@@ -53,11 +55,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_connect:
                 //连接
-                String ip = mEtIP.getText().toString();
-                int port = Integer.valueOf(mEtPort.getText().toString());
-                if (mSocket == null) {
+                if (mSocket == null || !mSocket.isConnected()) {
+                    String ip = mEtIP.getText().toString();
+                    int port = Integer.valueOf(mEtPort.getText().toString());
                     mConnectThread = new ConnectThread(ip, port);
                     mConnectThread.start();
+                }
+                if (mSocket != null && mSocket.isConnected()) {
+                    try {
+                        mSocket.close();
+                        mBtnConnect.setText("连接");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 break;
@@ -102,8 +112,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             try {
                 mSocket = new Socket(ip, port);
                 out = new PrintStream(mSocket.getOutputStream());
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBtnConnect.setText("断开");
+                    }
+                });
+                new HeartBeatThread().start();
             } catch (IOException e) {
                 e.printStackTrace();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this, "连接失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
+    }
+
+    private class HeartBeatThread extends Thread {
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(3000);
+                    if (!mSocket.isConnected()) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                mBtnConnect.setText("连接");
+                                Toast.makeText(MainActivity.this, "连接已关闭", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

@@ -7,10 +7,11 @@
     tools:context="com.qicaiz.wifiled.MainActivity">
 
     <TextView
+        android:layout_marginTop="10dp"
         android:id="@+id/ip_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="服务器IP："
+        android:text="服 务 器  IP："
         android:textSize="20sp"
         />
 
@@ -21,6 +22,7 @@
         android:layout_height="wrap_content"
         android:text="192.168.4.1" />
     <TextView
+        android:layout_marginTop="10dp"
         android:id="@+id/port_label"
         android:layout_below="@id/ip_label"
         android:layout_width="wrap_content"
@@ -46,7 +48,7 @@
         />
 
     <RelativeLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:id="@+id/red_parent"
         android:layout_below="@id/btn_connect"
         android:layout_width="match_parent"
@@ -72,7 +74,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:id="@+id/yellow_parent"
         android:layout_below="@id/red_parent"
         android:layout_width="match_parent"
@@ -96,7 +98,7 @@
 
     </RelativeLayout>
     <RelativeLayout
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:background="#0000ff"
         android:layout_below="@id/yellow_parent"
         android:layout_width="match_parent"
