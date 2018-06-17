@@ -13,17 +13,27 @@ import java.io.PrintStream;
 import java.net.Socket;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
+    /**TCP连接线程*/
     private ConnectThread mConnectThread;
+    /**Socket套接字*/
     private Socket mSocket;
+    /**服务器IP*/
     private EditText mEtIP;
+    /**服务器端口*/
     private EditText mEtPort;
+    /**连接按钮*/
     private Button mBtnConnect;
+    /**红色LED灯开按钮*/
     private Button mBtnRedOn;
+    /**红色LED灯关按钮*/
     private Button mBtnRedOff;
+    /**黄色LED灯开按钮*/
     private Button mBtnYellowOn;
+    /**黄色LED灯关按钮*/
     private Button mBtnYellowOff;
+    /**蓝色LED灯开按钮*/
     private Button mBtnBlueOn;
+    /**蓝色LED灯关按钮*/
     private Button mBtnBlueOff;
     private PrintStream out;
 
